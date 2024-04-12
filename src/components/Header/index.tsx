@@ -25,9 +25,8 @@ export const Header: React.FC<IHeaderProps> = ({ percentage, isHome = false }) =
     const { navigate } = useNavigation();
 
     const formatedNumber = useCallback((number: number) => {
-        return number.toFixed(2).toString().replace('.', ',') + '%'
+        return number >= 0 ? number.toFixed(2).toString().replace('.', ',') + '%' : '0,00%'
     }, [])
-
 
     return (
         <>

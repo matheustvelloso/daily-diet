@@ -6,6 +6,11 @@ export type SnackType = {
     isDiet: boolean,
 }
 
+export type SnackByDateType = [
+    string,
+    SnackType[]
+]
+
 export type progressValuesArrayType = {
     percentage: number,
     isDiet: number,

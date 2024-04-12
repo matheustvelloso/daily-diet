@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { StatusCard } from "src/components/StatusCard"
 import { View } from "react-native"
 import { useFocusEffect } from "@react-navigation/native"
-import useSnacks from "@hooks/useBaseHook"
+import useSnacks from "@hooks/useSnacks"
 import { useCallback, useEffect, useState } from "react"
 import { SnackType } from "src/types/snackType"
 

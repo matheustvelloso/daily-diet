@@ -3,21 +3,17 @@ import { Dot, NameText, SnackListContainer, TimeText } from "./styles"
 import { SnackType } from "src/types/snackType"
 
 interface ISnackCardProps {
-    snackPerDate: SnackType
+    snack: SnackType
 }
 
-export const SnackCard: React.FC<ISnackCardProps> = ({ snackPerDate }) => {
+export const SnackCard: React.FC<ISnackCardProps> = ({ snack }) => {
     return (
-        <View
-            style={{ gap: 12 }}
-        >
-            <SnackListContainer>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                    <TimeText >{snackPerDate.time}</TimeText>
-                    <NameText>{snackPerDate.name}</NameText>
-                </View>
-                <Dot iconColor={snackPerDate.isDiet === true ? 'green' : 'red'} />
-            </SnackListContainer >
-        </View>
+        <SnackListContainer>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                <TimeText >{snack.time}</TimeText>
+                <NameText>{snack.name}</NameText>
+            </View>
+            <Dot iconColor={snack.isDiet === true ? 'green' : 'red'} />
+        </SnackListContainer >
     )
 }

@@ -11,6 +11,7 @@ export const SnackListContainer = styled.TouchableOpacity`
   border: 1px solid ${({ theme }) => theme.base.gray_500};
   border-radius: 8px;
   padding: 18px;
+  margin: 6px 0;
 `;
 
 export const Dot = styled(Circle).attrs<DotProps>(({ theme, iconColor }) => ({

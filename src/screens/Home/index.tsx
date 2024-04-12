@@ -6,18 +6,16 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { useFocusEffect, useNavigation } from "@react-navigation/native"
 import { useCallback, useState, useEffect } from "react"
 import { SnackCard } from "@components/SnackCard"
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import useSnacks from "@hooks/useBaseHook"
+import useSnacks from "@hooks/useSnacks"
 
 export const Home: React.FC = () => {
+    const insets = useSafeAreaInsets();
+    const { snacks, snacksPerDate, fetchSnacks } = useSnacks();
+    const { navigate } = useNavigation();
+
     const [percentage, setPercentage] = useState(0);
 
-    const { snacks, fetchSnacks } = useSnacks();
-
-    const formatDate = (date: string | number) => String(date).replace('20', '').replaceAll('/', '.')
-
-    const insets = useSafeAreaInsets();
-    const { navigate } = useNavigation();
+    const formatDate = (date: string | number) => String(date).replace('20', '').replaceAll('/', '.');
 
     useFocusEffect(useCallback(() => {
         fetchSnacks();
@@ -27,8 +25,7 @@ export const Home: React.FC = () => {
         const isDietMap = snacks?.map(snack => snack.isDiet)
         const isDietValues = (isDietMap?.filter(isDiet => isDiet === true).length / isDietMap.length) * 100
         setPercentage(isDietValues)
-    }, [snacks])
-
+    }, [snacks]);
 
     return (
         <Container insets={insets}>
@@ -37,13 +34,14 @@ export const Home: React.FC = () => {
                 <Title>Refeições</Title>
                 <Button icon="plus" buttonText="Nova refeição" onPress={() => navigate('CreateSnack')} />
             </View>
+
             <FlatList
                 style={{ paddingHorizontal: 24 }}
-                data={snacks}
+                data={snacksPerDate}
                 renderItem={({ item }) => (
                     <>
-                        <DateText>{formatDate(item.date)}</DateText>
-                        <SnackCard snackPerDate={item} />
+                        <DateText>{formatDate(item[0])}</DateText>
+                        {item[1].map(snack => (<SnackCard key={snack.description} snack={snack} />))}
                     </>
                 )}
             />
