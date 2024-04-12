@@ -22,7 +22,8 @@ export const themes = {
 
     font_family: {
         regular: 'NunitoSans_400Regular',
-        bold: 'NunitoSans_700Bold'
+        bold: 'NunitoSans_700Bold',
+        extra_bold: 'NunitoSans_800ExtraBold'
     },
 
     font_size: {
@@ -31,7 +32,15 @@ export const themes = {
         lg: 16,
         xl: 18,
         '2xl': 24,
-        '3xl': 32,
+        '3xl': 32
+    },
+
+    icons: {
+        arrow_left: 'arrow-left',
+        arrow_up_right: 'arrow-up-right',
+        plus: 'plus',
+        pencil_simple_line: 'pencil-simple-line',
+        trash: 'trash'
     }
 
 }
