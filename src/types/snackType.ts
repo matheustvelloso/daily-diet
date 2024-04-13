@@ -1,8 +1,8 @@
 export type SnackType = {
     name: string,
     description: string,
-    date: string | number,
-    time: string | number,
+    date: string,
+    time: string,
     isDiet: boolean,
 }
 

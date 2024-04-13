@@ -4,7 +4,7 @@ import { useCallback } from "react";
 
 type IButtonProps = TouchableOpacityProps & {
     buttonText: string;
-    icon?: string;
+    icon?: 'trash' | 'edit' | 'plus';
     buttonColor?: 'gray_200' | 'white';
 }
 

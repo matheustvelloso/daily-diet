@@ -1,4 +1,4 @@
-import { progressValuesArrayType } from "./snackType";
+import { SnackType, progressValuesArrayType } from "./snackType";
 
 export declare global {
     namespace ReactNavigation {
@@ -9,6 +9,9 @@ export declare global {
             CreateSnackSuccessful: {
                 color: string
             };
+            Snack: {
+                snack: SnackType
+            }
         }
     }
 }
