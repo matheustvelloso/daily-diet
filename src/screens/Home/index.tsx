@@ -7,15 +7,18 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native"
 import { useCallback, useState, useEffect } from "react"
 import { SnackCard } from "@components/SnackCard"
 import useSnacks from "@hooks/useSnacks"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { SnackType } from "src/types/snackType"
 
 export const Home: React.FC = () => {
     const insets = useSafeAreaInsets();
-    const { snacks, snacksPerDate, fetchSnacks } = useSnacks();
+    const { snacks, fetchSnacks } = useSnacks();
     const { navigate } = useNavigation();
+    // AsyncStorage.clear()
 
     const [percentage, setPercentage] = useState(0);
 
-    const formatDate = (date: string | number) => String(date).replace('20', '').replaceAll('/', '.');
+    const formatDate = (date: string) => date.replace('20', '').replaceAll('/', '.');
 
     useFocusEffect(useCallback(() => {
         fetchSnacks();
@@ -27,6 +30,23 @@ export const Home: React.FC = () => {
         setPercentage(isDietValues)
     }, [snacks]);
 
+    const snacksSorted = snacks?.sort((a, b) => {
+        const dateA = new Date(a.date.split('/').reverse().join('-'));
+        const dateB = new Date(b.date.split('/').reverse().join('-'));
+
+        return dateB.getTime() - dateA.getTime();
+    });
+    const groupedSnacks: { [date: string]: SnackType[] } = {}
+    for (const snack of snacksSorted) {
+        const date = snack.date;
+        if (!groupedSnacks[date]) {
+            groupedSnacks[date] = [];
+        }
+        groupedSnacks[date].push(snack);
+    }
+
+    // console.log(snacksSorted);
+
     return (
         <Container insets={insets}>
             <Header percentage={percentage} isHome />
@@ -37,11 +57,11 @@ export const Home: React.FC = () => {
 
             <FlatList
                 style={{ paddingHorizontal: 24 }}
-                data={snacksPerDate}
+                data={Object.entries(groupedSnacks)}
                 renderItem={({ item }) => (
                     <>
                         <DateText>{formatDate(item[0])}</DateText>
-                        {item[1].map(snack => (<SnackCard key={snack.description} snack={snack} />))}
+                        {item[1].map(snack => (<SnackCard key={snack.time} snack={snack} onPress={() => navigate('Snack', { snack })} />))}
                     </>
                 )}
             />
