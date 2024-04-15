@@ -1,6 +1,6 @@
 
 import { Alert, ScrollView, Text, View } from "react-native";
-import { Container, ContentContainer, Dot, InputButton, Title } from "./styles"
+import { Container, ContentContainer, Dot, IsDietContainer, SnackDateAndTime, SnackDateAndTimeTitle, SnackDescription, SnackIsDiet, SnackName } from "./styles"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { InputText } from "@components/InputText";
 import { Button } from "@components/Button";
@@ -10,6 +10,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { snackCreate } from "@storage/snacks/snackCreate";
 import { SnackType } from "src/types/snackType";
 import { snackRemove } from "@storage/snacks/snackRemove";
+import { Modal } from "@components/Modal";
 
 type RouteParams = {
     snack: SnackType
@@ -19,6 +20,8 @@ type RouteParams = {
 export const Snack: React.FC = () => {
     const insets = useSafeAreaInsets();
     const { navigate } = useNavigation();
+
+    const [modalVisible, setModalVisible] = useState(false);
 
     const { params: { snack } } = useRoute() as { params: RouteParams };
 
@@ -43,24 +46,28 @@ export const Snack: React.FC = () => {
     }, [])
 
     return (
-        <Container insets={insets} color={snack.isDiet}>
-            <ContentContainer>
-                <View style={{ flex: 1, gap: 16 }}>
-                    <View>
-                        <Title>{snack.name}</Title>
-                        <Text>{snack.description}</Text>
+        <>
+            <Container insets={insets} color={snack.isDiet} modalVisible={modalVisible}>
+                <ContentContainer>
+                    <View style={{ flex: 1, gap: 16 }}>
+                        <View style={{ gap: 12 }}>
+                            <SnackName>{snack.name}</SnackName>
+                            <SnackDescription>{snack.description}</SnackDescription>
+                        </View>
+                        <View style={{ gap: 12 }}>
+                            <SnackDateAndTimeTitle>Data e hora</SnackDateAndTimeTitle>
+                            <SnackDateAndTime>{`${snack.date} às ${snack.time}`}</SnackDateAndTime>
+                        </View>
+                        <IsDietContainer>
+                            <Dot iconColor={snack.isDiet ? 'green' : 'red'} />
+                            <SnackIsDiet>{snack.isDiet ? 'dentro da dieta' : 'fora da dieta'}</SnackIsDiet>
+                        </IsDietContainer>
                     </View>
-                    <View>
-                        <Title>Data e hora</Title>
-                        <Text>{`${snack.date} às ${snack.time}`}</Text>
-                    </View>
-                    <View>
-                        <Text>{snack.isDiet ? 'dentro da dieta' : 'fora da dieta'}</Text>
-                    </View>
-                </View>
-                <Button buttonText="Editar refeição" onPress={handleRemoveSnack} icon="edit" />
-                <Button buttonText="Excluir refeição" onPress={handleRemoveSnack} buttonColor="white" icon="trash" />
-            </ContentContainer>
-        </Container >
+                    <Button buttonText="Editar refeição" onPress={handleRemoveSnack} icon="edit" />
+                    <Button buttonText="Excluir refeição" onPress={() => setModalVisible(true)} buttonColor="white" icon="trash" />
+                </ContentContainer>
+                <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} removedSnack={removedSnack} />
+            </Container >
+        </>
     )
 }

@@ -6,16 +6,12 @@ import styled, { css } from "styled-components/native";
 type ContainerProps = {
   insets: EdgeInsets;
   color: boolean;
-}
-
-type InputButtonProps = {
-  bgColor?: string;
+  modalVisible: boolean;
 }
 
 type DotProps = {
   iconColor?: string;
 }
-
 
 
 export const Container = styled.View<ContainerProps>`
@@ -24,6 +20,7 @@ export const Container = styled.View<ContainerProps>`
   padding-top: ${({ insets }) => insets.top + 24}px;
 
   background-color: ${({ theme, color }) => color ? theme.product.grenn_light : theme.product.red_light};
+  opacity: ${({ modalVisible }) => modalVisible ? 0.25 : 1};
 `;
 
 export const ContentContainer = styled.View`
@@ -37,57 +34,57 @@ export const ContentContainer = styled.View`
   
 `;
 
-export const Title = styled.Text`
- ${({ theme }) => css({
-  fontSize: theme.font_size['md'],
-  fontFamily: theme.font_family.bold,
-  color: theme.base.gray_100,
-})}
-`;
-
-export const InputButton = styled.TouchableOpacity.attrs(() => ({
-  activeOpacity: 1,
-})) <InputButtonProps>`
-  flex: 1;
-  flex-direction: row;
-  border: 1px solid ${({ theme, bgColor }) => {
-    switch (bgColor) {
-      case 'green':
-        return theme.product.green_dark;
-      case 'red':
-        return theme.product.red_dark;
-      default:
-        return theme.base.gray_500;
-
-    }
-  }};
-  border-radius: 5px;
-  
-  background-color: ${({ theme, bgColor }) => {
-    switch (bgColor) {
-      case 'green':
-        return theme.product.grenn_light;
-      case 'red':
-        return theme.product.red_light;
-      default:
-        return theme.base.gray_500;
-
-    }
-  }};
-  
-  margin-top: 4px;
-  padding: 10px;
-  gap: 6px;
-
-  justify-content: center;
-  align-items: center;
-
-`;
 
 export const Dot = styled(Circle).attrs<DotProps>(({ theme, iconColor }) => ({
   color: iconColor === 'red' ? theme.product.red_dark : theme.product.green_dark,
-  size: 8,
+  size: 12,
   weight: 'fill'
 })
 )``;
+
+export const SnackName = styled.Text`
+ ${({ theme }) => css({
+  fontSize: theme.font_size['2xl'],
+  fontFamily: theme.font_family.bold,
+  color: theme.base.gray_100,
+})}`;
+
+export const SnackDescription = styled.Text`
+ ${({ theme }) => css({
+  fontSize: theme.font_size['xl'],
+  fontFamily: theme.font_family.regular,
+  color: theme.base.gray_100,
+})}`;
+
+export const SnackDateAndTimeTitle = styled.Text`
+ ${({ theme }) => css({
+  fontSize: theme.font_size['xl'],
+  fontFamily: theme.font_family.bold,
+  color: theme.base.gray_100,
+})}`;
+
+export const SnackDateAndTime = styled.Text`
+ ${({ theme }) => css({
+  fontSize: theme.font_size['xl'],
+  fontFamily: theme.font_family.regular,
+  color: theme.base.gray_100,
+})}`;
+
+export const SnackIsDiet = styled.Text` ${({ theme }) => css({
+  fontSize: theme.font_size['lg'],
+  fontFamily: theme.font_family.regular,
+  color: theme.base.gray_100,
+})}`;
+
+export const IsDietContainer = styled.View`
+  flex-direction: row;
+  align-items: center ;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.base.gray_600};
+  padding: 8px 16px;
+  width: 140px;
+  gap: 6px;
+  border-radius: 20px;
+`;
+
 

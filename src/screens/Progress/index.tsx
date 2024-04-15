@@ -41,7 +41,7 @@ export const Progress: React.FC = () => {
         for (const data in snacksPerDate) {
             const snacksPerDay = snacksPerDate[data];
 
-            snacksPerDay.sort((a, b) => a.time.localeCompare(b.time));
+            snacksPerDay.sort((a, b) => String(a.time).localeCompare(String(b.time)));
 
             for (const snack of snacksPerDay) {
                 if (snack.isDiet) {
