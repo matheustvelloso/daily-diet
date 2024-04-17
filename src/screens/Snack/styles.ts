@@ -44,34 +44,34 @@ export const Dot = styled(Circle).attrs<DotProps>(({ theme, iconColor }) => ({
 
 export const SnackName = styled.Text`
  ${({ theme }) => css({
-  fontSize: theme.font_size['2xl'],
+  fontSize: theme.font_size['xl'],
   fontFamily: theme.font_family.bold,
   color: theme.base.gray_100,
 })}`;
 
 export const SnackDescription = styled.Text`
  ${({ theme }) => css({
-  fontSize: theme.font_size['xl'],
+  fontSize: theme.font_size['lg'],
   fontFamily: theme.font_family.regular,
   color: theme.base.gray_100,
 })}`;
 
 export const SnackDateAndTimeTitle = styled.Text`
  ${({ theme }) => css({
-  fontSize: theme.font_size['xl'],
+  fontSize: theme.font_size['lg'],
   fontFamily: theme.font_family.bold,
   color: theme.base.gray_100,
 })}`;
 
 export const SnackDateAndTime = styled.Text`
  ${({ theme }) => css({
-  fontSize: theme.font_size['xl'],
+  fontSize: theme.font_size['lg'],
   fontFamily: theme.font_family.regular,
   color: theme.base.gray_100,
 })}`;
 
 export const SnackIsDiet = styled.Text` ${({ theme }) => css({
-  fontSize: theme.font_size['lg'],
+  fontSize: theme.font_size['md'],
   fontFamily: theme.font_family.regular,
   color: theme.base.gray_100,
 })}`;

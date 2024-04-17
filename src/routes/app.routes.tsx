@@ -6,6 +6,7 @@ import { CreateSnack } from '@screens/CreateSnack';
 import { themes } from 'src/themes/index';
 import { CreateSnackSuccessful } from '@screens/CreateSnackSuccessful';
 import { Snack } from '@screens/Snack';
+import { EditSnack } from '@screens/EditSnack';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -41,6 +42,17 @@ export const AppRoutes: React.FC = () => {
                 options={{
                     headerShown: true,
                     headerTitle: 'Refeição',
+                    headerTitleStyle: { fontSize: themes.font_size.xl, fontFamily: themes.font_family.bold },
+                    headerTransparent: true,
+                    headerTitleAlign: 'center',
+                }}
+            />
+            <Screen
+                name="EditSnack"
+                component={EditSnack}
+                options={{
+                    headerShown: true,
+                    headerTitle: 'Editar refeição',
                     headerTitleStyle: { fontSize: themes.font_size.xl, fontFamily: themes.font_family.bold },
                     headerTransparent: true,
                     headerTitleAlign: 'center',

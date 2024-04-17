@@ -14,7 +14,6 @@ export const Home: React.FC = () => {
     const insets = useSafeAreaInsets();
     const { snacks, fetchSnacks } = useSnacks();
     const { navigate } = useNavigation();
-    // AsyncStorage.clear()
 
     const [percentage, setPercentage] = useState(0);
 
@@ -44,8 +43,6 @@ export const Home: React.FC = () => {
         }
         groupedSnacks[date].push(snack);
     }
-
-    // console.log(snacksSorted);
 
     return (
         <Container insets={insets}>

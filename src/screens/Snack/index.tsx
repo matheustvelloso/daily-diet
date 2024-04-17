@@ -63,7 +63,7 @@ export const Snack: React.FC = () => {
                             <SnackIsDiet>{snack.isDiet ? 'dentro da dieta' : 'fora da dieta'}</SnackIsDiet>
                         </IsDietContainer>
                     </View>
-                    <Button buttonText="Editar refeição" onPress={handleRemoveSnack} icon="edit" />
+                    <Button buttonText="Editar refeição" onPress={() => navigate('EditSnack', { snack })} icon="edit" />
                     <Button buttonText="Excluir refeição" onPress={() => setModalVisible(true)} buttonColor="white" icon="trash" />
                 </ContentContainer>
                 <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} removedSnack={removedSnack} />

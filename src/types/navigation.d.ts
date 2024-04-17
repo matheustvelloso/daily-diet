@@ -12,6 +12,9 @@ export declare global {
             Snack: {
                 snack: SnackType
             }
+            EditSnack: {
+                snack: SnackType
+            }
         }
     }
 }
