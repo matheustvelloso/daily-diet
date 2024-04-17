@@ -8,18 +8,18 @@ import { useFocusEffect } from "@react-navigation/native"
 import useSnacks from "@hooks/useSnacks"
 import { useCallback, useEffect, useState } from "react"
 import { SnackType } from "src/types/snackType"
+import { Loading } from "src/components/Loading"
 
 
 export const Progress: React.FC = () => {
+    const { snacks, fetchSnacks, loading } = useSnacks();
+    const insets = useSafeAreaInsets();
+
     const [percentage, setPercentage] = useState(0);
     const [isDiet, setIsDiet] = useState(0);
     const [notDiet, setNotDiet] = useState(0);
     const [totalSnacks, setTotalSnacks] = useState(0);
     const [snacksBetterSequency, setSnacksBetterSequency] = useState(0);
-
-    const { snacks, fetchSnacks } = useSnacks();
-
-    const insets = useSafeAreaInsets();
 
     const extractIsDietValues = useCallback(() => {
         const isDietMap = snacks?.map(snack => snack.isDiet)
@@ -78,19 +78,21 @@ export const Progress: React.FC = () => {
     }, [snacks])
 
     return (
-        <Container insets={insets} isDiet={percentage >= 50}>
-            <Header percentage={percentage} />
-            <ContentContainer>
-                <Title>Estatísticas gerais</Title>
-                <View style={{ gap: 12 }}>
-                    <StatusCard quantity={snacksBetterSequency} statusText="melhor sequência de pratos dentro da dieta" />
-                    <StatusCard quantity={totalSnacks} statusText="refeições registradas" />
-                    <View style={{ flexDirection: 'row', gap: 12 }}>
-                        <StatusCard flex1 quantity={isDiet} statusText="refeições dentro da dieta" bgColor="green_light" />
-                        <StatusCard flex1 quantity={notDiet} statusText="refeições fora da dieta" bgColor="red_light" />
+        <>
+            {!loading ? <Container insets={insets} isDiet={percentage >= 50}>
+                <Header percentage={percentage} />
+                <ContentContainer>
+                    <Title>Estatísticas gerais</Title>
+                    <View style={{ gap: 12 }}>
+                        <StatusCard quantity={snacksBetterSequency} statusText="melhor sequência de pratos dentro da dieta" />
+                        <StatusCard quantity={totalSnacks} statusText="refeições registradas" />
+                        <View style={{ flexDirection: 'row', gap: 12 }}>
+                            <StatusCard flex1 quantity={isDiet} statusText="refeições dentro da dieta" bgColor="green_light" />
+                            <StatusCard flex1 quantity={notDiet} statusText="refeições fora da dieta" bgColor="red_light" />
+                        </View>
                     </View>
-                </View>
-            </ContentContainer>
-        </Container >
+                </ContentContainer>
+            </Container > : <Loading />}
+        </>
     )
 }

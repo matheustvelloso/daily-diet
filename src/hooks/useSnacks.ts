@@ -6,18 +6,23 @@ import { SnackType } from "src/types/snackType";
 type SnackHookType = () => {
     snacks: SnackType[],
     fetchSnacks: () => Promise<void>
+    loading: boolean
 }
 
 const useSnacks: SnackHookType = () => {
     const [snacks, setSnacks] = useState<SnackType[]>([]);
+    const [loading, setLoading] = useState(false);
 
     const fetchSnacks = async () => {
+        setLoading(true);
         try {
             const data = await getAllSnacks();
             setSnacks(data);
 
         } catch (e) {
-            console.log(e)
+            console.log(e);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -25,9 +30,10 @@ const useSnacks: SnackHookType = () => {
     return useMemo(
         () => ({
             snacks,
-            fetchSnacks
+            fetchSnacks,
+            loading
         }),
-        [snacks, fetchSnacks],
+        [snacks, fetchSnacks, loading],
     );
 };
 

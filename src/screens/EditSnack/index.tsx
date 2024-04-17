@@ -41,7 +41,7 @@ export const EditSnack: React.FC = () => {
             if (verifyFormEmptyFields([color, date, time, name, description])) return setRequired(true);
 
             await snackEdit(editedSnack);
-            navigate('Home')
+            navigate('Snack', { snack: editedSnack })
         } catch (error) {
             console.log(error);
         }
@@ -111,7 +111,7 @@ export const EditSnack: React.FC = () => {
                             </View>
                         </View>
                     </View>
-                    <Button buttonText="Salva alterações" onPress={handleEditSnack} />
+                    <Button buttonText="Salvar alterações" onPress={handleEditSnack} />
                 </ScrollView>
             </ContentContainer>
         </Container >
